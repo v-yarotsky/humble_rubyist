@@ -1,0 +1,10 @@
+tmp/
+doc/
+.DS_Store
+.tags*
+.rvmrc
+.exrc
+nohup.out
+coverage/
+*.sublime-project
+*.sublime-workspace
