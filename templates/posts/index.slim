@@ -1,0 +1,7 @@
+section#posts
+  h1 Blog Posts
+  ul.posts
+    - @posts.each do |post|
+      li
+        == template 'posts/_post', locals: { post: post }
+

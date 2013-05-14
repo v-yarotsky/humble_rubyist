@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta name="viewport" content="width=device-width"
+
+    title Humble Rubyist
+
+    link rel="shortcut icon" href="#{gravatar(:favicon)}"
+    link rel="stylesheet" href="/stylesheets/syntax.css"
+    link rel="stylesheet" href="/stylesheets/main.css"
+  body
+    #site
+      nav
+        ul
+          li
+            a href="/" Home
+      header
+        a href="/"
+          img.avatar src="#{gravatar(:medium)}" alt="portrait"
+        h1
+          a href="/" Humble Rubyist
+      == yield
+      footer
+        p
+          Vladimir Yarotsky
+          a href="https://github.com/v-yarotsky/" github.com/v-yarotsky
+

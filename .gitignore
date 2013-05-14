@@ -8,3 +8,4 @@ nohup.out
 coverage/
 *.sublime-project
 *.sublime-workspace
+.sass-cache/
