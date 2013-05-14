@@ -17,13 +17,8 @@ module HumbleEditor
 
     command :open do |c|
       c.description "Edit existing post"
-      c.mandatory_param(:slug) do |p|
-        p.validate { |v| /\A[-\w]+\Z/ =~ v }
-      end
-      c.mandatory_param(:date) do |p|
-        p.validate { |v| /\A\d{4}-\d{2}-\d{2}\Z/ =~ v }
-      end
-      c.run { |params| @app.open_post(params) }
+      c.mandatory_param(:id)
+      c.run { |params| @app.open_post(params[:id]) }
     end
 
     command :edit do |c|

@@ -25,19 +25,19 @@ module HumbleRubyist
         JSON.dump(posts: posts.map(&:values))
       end
 
-      get %r{/api/posts/(?<date>\d{4}-\d{2}-\d{2})-(?<slug>[-\w]+)} do
+      get "/api/posts/:id" do
         content_type :json
-        if post = Post.find_by_date_and_slug(params[:date], params[:slug])
+        if post = Post[params[:id]]
           JSON.dump(post.values)
         else
           error 404, JSON.dump(message: "Not found")
         end
       end
 
-      put %r{/api/posts/(?<date>\d{4}-\d{2}-\d{2})-(?<slug>[-\w]+)} do
+      put "/api/posts/:id" do
         error 401 unless authorized?(params[:key])
         content_type :json
-        if post = Post.find_by_date_and_slug(params[:date], params[:slug])
+        if post = Post[params[:id]]
           params[:post].delete("id")
           if post.update(params[:post])
             JSON.dump(post.values)

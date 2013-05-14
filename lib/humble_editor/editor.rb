@@ -19,9 +19,9 @@ module HumbleEditor
       @new_post = true
     end
 
-    def open_post(params)
+    def open_post(id)
       raise AlreadyBuildingPostError if @post
-      result = api_get("/api/posts/#{params[:date]}-#{params[:slug]}")
+      result = api_get("/api/posts/#{id}")
       if result.delete(:success)
         @new_post = false
         @post = result.inject({}) { |r, (k, v)| r[k.to_sym] = v; r }
@@ -35,7 +35,7 @@ module HumbleEditor
     def show_list
       result = api_get("/api/posts")
       if result.delete(:success)
-        result["posts"].map { |p| "%10s [%s] %s" % [p["published_at"], p["slug"], p["title"]] }
+        result["posts"].map { |p| "%d) %10s [%s] %s" % [p["id"], p["published_at"], p["slug"], p["title"]] }
       end
     end
 
@@ -55,8 +55,7 @@ module HumbleEditor
         @post[:published_at] = Time.now
         api_post("/api/posts", to_params[@post])
       else
-        date, slug = Date.parse(@post[:published_at]), @post[:slug]
-        api_put("/api/posts/#{date}-#{slug}", to_params[@post])
+        api_put("/api/posts/#{@post[:id]}", to_params[@post])
       end
       @post = nil if result[:success]
     end
