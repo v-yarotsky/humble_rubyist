@@ -4,4 +4,5 @@ section#posts
     - @posts.each do |post|
       li
         == template 'posts/_post', locals: { post: post }
+        a href="#{post.permalink}" Read on...
 
