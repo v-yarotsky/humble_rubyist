@@ -1,6 +1,6 @@
 desc "Start development server"
 task :server do |t|
-  `shotgun`
+  system("shotgun")
 end
 
 desc "Start development console"

@@ -26,9 +26,14 @@ module HumbleRubyist
       template 'posts/index'
     end
 
-    get "/:permalink" do
-      @post = Presenters::Post.new(Post.first)
-      template 'posts/show'
+    get %r{/(\d{4}-\d{2}-\d{2})-([-\w]+)} do
+      date, slug = params[:captures]
+      if @post = Post.find_by_date_and_slug(date, slug)
+        @post = Presenters::Post.new(@post)
+        template 'posts/show'
+      else
+        error 400, "Post not found"
+      end
     end
   end
 
