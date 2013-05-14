@@ -26,13 +26,12 @@ module HumbleRubyist
       template 'posts/index'
     end
 
-    get %r{/(\d{4}-\d{2}-\d{2})-([-\w]+)} do
-      date, slug = params[:captures]
-      if @post = Post.find_by_date_and_slug(date, slug)
+    get %r{/(?<date>\d{4}-\d{2}-\d{2})-(?<slug>[-\w]+)} do
+      if @post = Post.find_by_date_and_slug(params[:date], params[:slug])
         @post = Presenters::Post.new(@post)
         template 'posts/show'
       else
-        error 400, "Post not found"
+        error 404, "Post not found"
       end
     end
   end

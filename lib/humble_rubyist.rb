@@ -8,7 +8,7 @@ module HumbleRubyist
   end
 
   def self.key
-    File.read(path("Keyfile"))
+    File.read(path("Keyfile")).chomp
   rescue Errno::ENOENT
     raise ConfigurationError.new("Keyfile is absent")
   end

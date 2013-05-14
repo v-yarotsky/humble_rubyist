@@ -10,3 +10,5 @@ gem "slim",            "~> 1.3.8"
 gem "shotgun",         "~> 0.9"
 gem "sqlite3",         "~> 1.3.7"
 gem "sequel",          "~> 3.47.0"
+
+gem "shellissimo",     git: "https://github.com/v-yarotsky/shellissimo.git", branch: "master"

@@ -1,4 +1,5 @@
 require 'sequel'
+require 'logger'
 
 module HumbleRubyist
 
@@ -12,13 +13,17 @@ module HumbleRubyist
           db = Sequel.sqlite(HumbleRubyist.path('db/humble_rubyist.db'))
           db.use_timestamp_timezones = false
 
+          db.loggers << Logger.new(STDOUT)
+
           db.create_table? :posts do
-            primary_key :slug
+            primary_key :id
             String      :slug
             String      :title
             String      :content
             DateTime    :published_at
             String      :icon
+
+            unique [:slug, :published_at]
           end
 
           db

@@ -15,4 +15,10 @@ task :console do |t|
   IRB.start
 end
 
+desc "Start editor shell"
+task :editor do |t|
+  $:.unshift File.expand_path("../lib", __FILE__)
+  require 'humble_editor/application'
+end
+
 task :default => :server
