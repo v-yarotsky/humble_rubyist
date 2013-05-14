@@ -39,7 +39,8 @@ module HumbleRubyist
         content_type :json
         if post = Post[params[:id]]
           params[:post].delete("id")
-          if post.update(params[:post])
+          post.set(params[:post])
+          if post.save
             JSON.dump(post.values)
           else
             error 400, JSON.dump(message: "Can't update post")

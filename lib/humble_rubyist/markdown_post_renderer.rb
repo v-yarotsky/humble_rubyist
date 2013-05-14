@@ -8,7 +8,7 @@ module HumbleRubyist
       CUT = /^<!-- more -->$/
 
       def initialize(options = {})
-        @cut = options.delete(:cut)
+        @cut = options[:cut]
         super(options)
       end
 
