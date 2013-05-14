@@ -18,12 +18,12 @@ class Post
 
   class UberHTML < Redcarpet::Render::HTML
     def block_code(code, language = :ruby)
-      Pygments.highlight(code, :lexer => language)
+      Pygments.highlight(code, lexer: language, options: { linenos: 'table' })
     end
   end
 
   def content
-    renderer = Redcarpet::Markdown.new(UberHTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, tables: true, with_toc_data: true)
+    renderer = Redcarpet::Markdown.new(UberHTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, tables: true, with_toc_data: true, no_styles: true)
     renderer.render(@content)
   end
 

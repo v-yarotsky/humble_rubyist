@@ -43,10 +43,6 @@ table {
   list-style-type: none;
   margin-bottom: 2em;
 
-  li {
-    line-height: 1.75em;
-  }
-
   time {
     color: #aaa;
     font-family: Monaco, "Courier New", monospace;
@@ -121,38 +117,51 @@ table {
 
 /*****************************************************************************/
 /*
-/* Posts
+/* Code
 /*
 /*****************************************************************************/
 
-/* standard */
-#post pre {
-  border: 1px solid #ddd;
+table.highlighttable {
+  border-spacing: 0px;
+  border-collapse: collapse;
   background-color: #f8f8f8;
-  padding: 1em;
+  width: 100%;
+
+  td {
+    border: 1px solid #ddd;
+  }
+
+  td > div {
+    border: 0 none;
+  }
+
+  .highlight {
+    display: table-cell;
+  }
+
+  pre {
+    padding: 1em;
+  }
+
+  td.linenos {
+    text-align: right;
+    background-color: #f2f2f2;
+    width: 40px;
+    white-space: nowrap;
+
+    pre {
+      padding: 0.5em;
+    }
+  }
 }
 
-#post ul, #post ol {
-  margin-left: 1.35em;
-}
-
-#post code {
+.highlight {
   border: 1px solid #ddd;
   background-color: #f8f8f8;
   padding: 0 .2em;
+
+  pre {
+    padding: 1em;
+  }
 }
 
-#post pre code {
-  border: none;
-}
-
-/* terminal */
-#post pre.terminal {
-  border: 1px solid #000;
-  background-color: #333;
-  color: #FFF;
-}
-
-#post pre.terminal code {
-  background-color: #333;
-}
