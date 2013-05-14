@@ -19,7 +19,15 @@ module HumbleRubyist
       end
 
       def permalink
-        "/%s-%s" % [@post.published_at.to_date, @post.slug]
+        "/%s-%s" % [iso_published_at, @post.slug]
+      end
+
+      def published_at
+        @post.published_at.strftime("%b %d, %Y")
+      end
+
+      def iso_published_at
+        @post.published_at.to_date.to_s
       end
     end
 

@@ -1,7 +1,7 @@
 section.post
   header
     span.icon class="#{locals[:post].icon}"
-    time datetime="2013-05-09" May 9
+    time datetime="#{locals[:post].iso_published_at}"= locals[:post].published_at
     h2
       a href="#{locals[:post].permalink}"
         = locals[:post].title
