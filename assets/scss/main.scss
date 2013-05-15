@@ -34,6 +34,21 @@ table {
   font: 100%;
 }
 
+.clearfix {
+  zoom:1;
+
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
 /*****************************************************************************/
 /*
 /* Home
@@ -43,7 +58,11 @@ table {
   list-style-type: none;
   margin-bottom: 2em;
 
+  a.cut:after {
+    content: "\0020\2192";
+  }
 }
+
 .post {
   margin-top: 1.5em;
 
@@ -76,10 +95,10 @@ table {
 #site {
   font-size: 115%;
   text-align: justify;
-  width: 760px;
-  margin: 3em auto 2em;
+  width: 740px;
+  margin: 20px auto 40px;
   line-height: 1.5em;
-  padding: 20px 70px;
+  padding: 20px 60px;
   background: #fff;
   border: 10px solid #666363;
 }
@@ -115,27 +134,41 @@ table {
 
 #site > nav {
   padding: 0.5em 0;
+  @extend .clearfix;
 
   ul {
     list-style: none;
+    line-height: 1em;
 
-    a {
-      text-decoration: none;
-      text-transform: uppercase;
-      border-right: 1px solid #ddd;
-      color: #555;
-      font-size: 12px;
+    li {
+      float:left;
+      padding-right: 0.5em;
+      margin-right: 0.5em;
+      border-right: 1px dotted #ddd;
+
+      a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #555;
+        font-size: 12px;
+
+        &:hover, &:focus, &:active {
+          color: #000;
+          text-decoration: underline;
+        }
+      }
 
       &:last-child {
         border-right: 0 none;
-      }
-
-      &:hover, &:focus, &:active {
-        color: #000;
-        text-decoration: underline;
+        padding-right: 0;
+        margin-right: 0;
       }
     }
   }
+}
+
+#site > .back:before {
+  content: "\2190\0020";
 }
 
 #site > footer {
