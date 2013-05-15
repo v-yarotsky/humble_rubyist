@@ -14,11 +14,14 @@ module HumbleRubyist
     include Helpers::Gravatar
     include Helpers::Rendering
 
+    set :static, true
+    set :public_folder, HumbleRubyist.path("public")
+    set :views, HumbleRubyist.path("templates")
+
+    use Engines::Admin
     use Engines::Scss
     use Engines::Coffee
     use Engines::Api
-
-    set :views, HumbleRubyist.path("templates")
 
     get "/" do
       renderer = MarkdownPostRenderer.new(cut: true)

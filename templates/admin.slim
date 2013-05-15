@@ -1,0 +1,71 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta name="viewport" content="width=device-width"
+
+    title Humble Rubyist Editor Web
+
+    link rel="shortcut icon" href="#{gravatar(:favicon)}"
+    link rel="stylesheet" href="/css/syntax.css"
+    link rel="stylesheet" href="/css/bootstrap.min.css" media="screen"
+
+  body data-spy="scroll" data-target=".subname" data-offset="50"
+    .header
+    .container
+      .row
+        #content.span12
+
+      footer.footer
+        p.pull-right
+
+    javascript:
+      window.apiKey = "#{@key}";
+
+    script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"
+    script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"
+    script src="js/bootstrap.min.js"
+    script src="js/application.js"
+
+    script type="text/template" class="PostListItemViewTemplate"
+      span.icon class="<%= icon %>"
+      a href="#posts/<%= id %>" class="post"
+        h5 <%= title %>
+      time <%= published_at %>
+
+    script type="text/template" class="PostViewTemplate"
+      .row
+        form.form-horizontal.span12
+          fieldset
+            legend Post
+            br
+            .row
+              .span9
+                .control-group
+                  label.control-label for="postId" Id:
+                  .controls
+                    input#postId.span1 name="id" type="text" value="<%= id === null ? '' : id %>"
+                .control-group
+                  label.control-label for="postTitle" Title:
+                  .controls
+                    input#postTitle name="title" type="text" value="<%= title %>"
+                .control-group
+                  label.control-label for="postSlug" Slug:
+                  .controls
+                    input#postSlug name="slug" type="text" value="<%= slug %>"
+                .control-group
+                  label.control-label for="postIcon" Icon:
+                  .controls
+                    input#postIcon name="icon" type="text" value="<%= icon %>"
+                .control-group
+                  label.control-label for="postContent" Content:
+                  .controls
+                    textarea#postContent.span8 name="content" rows="20" <%= content %>
+          .form-actions
+            a.btn.btn-primary.save href="#" Save
+            a.btn.btn-danger.delete href="#" Delete
+            .pull-right
+              a.btn.cancel href="#" Cancel
+
