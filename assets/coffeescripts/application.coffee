@@ -58,7 +58,7 @@ class window.PostView extends Backbone.View
     @model.save null,
       success: (model) ->
         @render
-        app.navigate("posts/" + model.id, false)
+        app.navigate("posts", false)
       error: ->
         alert("Error saving post")
 

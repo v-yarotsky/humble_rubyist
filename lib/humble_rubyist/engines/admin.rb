@@ -3,11 +3,23 @@ require 'json'
 module HumbleRubyist
   module Engines
 
+    class AdminAuthMiddleware < Rack::Auth::Basic
+      def call(env)
+        request = Rack::Request.new(env)
+        case request.path
+        when "/admin"
+          super
+        else
+          @app.call(env)
+        end
+      end
+    end
+
     class Admin < Sinatra::Base
       include Helpers::Rendering
       include Helpers::Gravatar
 
-      use Rack::Auth::Basic, "Restricted Area" do |username, password|
+      use AdminAuthMiddleware, "Restricted Area" do |username, password|
         username == "admin" and password == HumbleRubyist.key
       end
 

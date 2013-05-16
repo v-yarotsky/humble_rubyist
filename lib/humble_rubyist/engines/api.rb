@@ -10,7 +10,7 @@ module HumbleRubyist
       include Models
 
       post "/api/posts" do
-        error 401 unless authorized?(params[:key])
+        authorize!(params[:key])
         content_type :json
         if post = Post.create(params[:post])
           JSON.dump(post.values)
@@ -35,11 +35,11 @@ module HumbleRubyist
       end
 
       put "/api/posts/:id" do
-        error 401 unless authorized?(params[:key])
+        authorize!(params[:key])
+        post_params = JSON.parse(request.body.read)
         content_type :json
         if post = Post[params[:id]]
-          params[:post].delete("id")
-          post.set(params[:post])
+          post.set_fields(post_params, ["title", "slug", "content"])
           if post.save
             JSON.dump(post.values)
           else
@@ -52,8 +52,8 @@ module HumbleRubyist
 
       private
 
-      def authorized?(key)
-        key.to_s == HumbleRubyist.key
+      def authorize!(key)
+        #error 401 unless key.to_s == HumbleRubyist.key
       end
     end
 
