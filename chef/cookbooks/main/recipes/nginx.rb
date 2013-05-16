@@ -1,10 +1,11 @@
 gem_package "bundler"
 
 deploy_path = node[:deploy_path]
+builds_path = File.expand_path("../builds", deploy_path)
 log_path    = File.join(deploy_path, "log")
 pid_path    = File.join(deploy_path, "tmp", "pids")
 
-[deploy_path, log_path, pid_path].each do |dir|
+[builds_path, deploy_path, log_path, pid_path].each do |dir|
   directory dir do
     owner "www-data"
     group "www-data"
@@ -34,8 +35,12 @@ end
 
 execute "update-code" do
   action :nothing
+  build_dir = File.join(builds_path, "humble_rubyist-#{Time.now.strftime("%Y%m%d%H%M%S")}")
   command <<-SH
-    unzip #{code_archive} -x 'chef/*' -d #{deploy_path}
+    mkdir -p #{build_dir}
+    unzip #{code_archive} -x 'humble_rubyist-master/chef/*' -d #{build_dir}
+    cp -R #{build_dir}/humble_rubyist-master/* #{deploy_path}
+    chown -R www-data:www-data #{deploy_path}
   SH
 end
 
