@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# unicorn        Unicorn app server
+#
+# chkconfig: - 85 15
+# description: unicorn
+# processname: unicorn
+# pidfile: <%= @unicorn_pid %>
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+pidfile=<%= @unicorn_pid %>
+
+start() {
+  cd <%= @deploy_path %> && bundle exec unicorn -c unicorn.rb -E development -D -p 3000
+  echo 'done'
+  RETVAL=0
+  return $RETVAL
+}
+
+stop() {
+  killproc -p <%= @unicorn_pid %>
+  RETVAL=0
+  return $RETVAL
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  *)
+    echo $"Usage: $prog {start|stop}"
+    exit 1
+esac
+
+exit $RETVAL
+

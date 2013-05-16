@@ -1,0 +1,10 @@
+working_directory "<%= @deploy_path %>"
+pid "<%= @unicorn_pid %>"
+stderr_path "<%= @unicorn_err %>"
+stdout_path "<%= @unicorn_out %>"
+
+listen "/tmp/unicorn.socket"
+
+worker_processes 2
+timeout 30
+
