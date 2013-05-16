@@ -1,11 +1,14 @@
+package "libsqlite3-dev"
+
 gem_package "bundler"
 
 deploy_path = node[:deploy_path]
 builds_path = File.expand_path("../builds", deploy_path)
-log_path    = File.join(deploy_path, "log")
-pid_path    = File.join(deploy_path, "tmp", "pids")
+shared_path = File.expand_path("../shared", deploy_path)
+log_path    = File.join(shared_path, "log")
+pid_path    = File.join(shared_path, "tmp", "pids")
 
-[builds_path, deploy_path, log_path, pid_path].each do |dir|
+[builds_path, log_path, pid_path].each do |dir|
   directory dir do
     owner "www-data"
     group "www-data"
@@ -30,18 +33,24 @@ end
 code_archive = "#{Chef::Config[:file_cache_path]}/humble_rubyist.zip"
 remote_file code_archive do
   source "https://github.com/v-yarotsky/humble_rubyist/archive/master.zip"
-  notifies :run, "execute[update-code]"
+  #notifies :run, "execute[update-code]"
 end
 
 execute "update-code" do
-  action :nothing
   build_dir = File.join(builds_path, "humble_rubyist-#{Time.now.strftime("%Y%m%d%H%M%S")}")
   command <<-SH
     mkdir -p #{build_dir}
     unzip #{code_archive} -x 'humble_rubyist-master/chef/*' -d #{build_dir}
-    cp -R #{build_dir}/humble_rubyist-master/* #{deploy_path}
+    rm -f #{deploy_path}
+    ln -s #{build_dir}/humble_rubyist-master #{deploy_path}
+    ln -s #{log_path} #{deploy_path}/log
+    ln -s #{File.dirname(pid_path)} #{deploy_path}/tmp
+    ln -s #{shared_path}/unicorn.rb #{deploy_path}/unicorn.rb
     chown -R www-data:www-data #{deploy_path}
+    cd #{deploy_path}
+    bundle install
   SH
+  notifies :restart, "service[unicorn]"
 end
 
 template "/etc/init.d/unicorn" do
@@ -58,7 +67,7 @@ service "unicorn" do
   supports :starts => true, :stop => true, :restart => true
 end
 
-unicorn_conf = File.join(deploy_path, "unicorn.rb")
+unicorn_conf = File.join(shared_path, "unicorn.rb")
 
 template unicorn_conf do
   source "unicorn.rb.erb"
