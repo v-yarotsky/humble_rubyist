@@ -25,7 +25,7 @@ module HumbleRubyist
 
     get "/" do
       renderer = MarkdownPostRenderer.new(cut: true)
-      @posts = Post.all.map { |p| Presenters::Post.new(p, renderer) }
+      @posts = Post.ordered_by_date.map { |p| Presenters::Post.new(p, renderer) }
       template 'posts/index'
     end
 
