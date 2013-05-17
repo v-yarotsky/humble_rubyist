@@ -1,5 +1,7 @@
 {
-  "run_list": ["recipe[main]"],
-  "new_hostname": "blog.yarotsky.me",
-  "deploy_path": "/var/www/humble_rubyist"
+  "run_list": ["recipe[main::blog]"],
+  "blog": {
+    "dns_name": "blog.yarotsky.me",
+    "deploy_path": "/var/www/humble_rubyist"
+  }
 }

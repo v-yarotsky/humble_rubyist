@@ -10,7 +10,7 @@
 pidfile=<%= @unicorn_pid %>
 
 start() {
-  cd <%= @deploy_path %> && bundle exec unicorn -c unicorn.rb -E development -D -p 3000
+  unicorn -c <%= @unicorn_config %> -E <%= @unicorn_environment %> -D -p 3000
   echo 'done'
   RETVAL=0
   return $RETVAL
