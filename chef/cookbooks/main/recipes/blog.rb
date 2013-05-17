@@ -42,8 +42,10 @@ execute "update-code" do
     rm -f #{current_app}
     ln -s #{build_dir}/humble_rubyist-master #{current_app}
     ln -s #{db_path} #{current_app}/db
+    ln -s #{shared_path}/Keyfile #{current_app}/Keyfile
     cd #{current_app}
     bundle install
+    bundle exec rake ensure_schema assets:precompile
   SH
   notifies :restart, "main_unicorn[blog]"
 end
