@@ -1,17 +1,17 @@
-#upstream unicorn {
-#    server unix:/tmp/unicorn.socket fail_timeout=0;
-#}
-#
-#server {
-#  listen                <%= @hostname %>:80;
-#  server_name           <%= @hsotname %>;
-#  root                  <%= @app_public %>;
-#
-#  try_files $uri/index.html $uri @unicorn;
-#
-#  error_page 500 502 503 504 /500.html;
-#
-#  location @unicorn {
-#    proxy_pass http://unicorn;
-#  }
-#}
+upstream unicorn {
+    server unix:/tmp/unicorn.socket fail_timeout=0;
+}
+
+server {
+  listen                <%= @hostname %>:80;
+  server_name           <%= @hostname %>;
+  root                  <%= @app_public %>;
+
+  try_files $uri/index.html $uri @unicorn;
+
+  error_page 500 502 503 504 /500.html;
+
+  location @unicorn {
+    proxy_pass http://unicorn;
+  }
+}

@@ -17,7 +17,7 @@ start() {
 }
 
 stop() {
-  killproc -p <%= @unicorn_pid %>
+  kill `cat <%= @unicorn_pid %>`
   RETVAL=0
   return $RETVAL
 }
@@ -28,6 +28,11 @@ case "$1" in
     ;;
   stop)
     stop
+    ;;
+  restart)
+    stop
+    sleep 2
+    start
     ;;
   *)
     echo $"Usage: $prog {start|stop}"

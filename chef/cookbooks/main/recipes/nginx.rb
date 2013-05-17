@@ -7,8 +7,9 @@ builds_path = File.expand_path("../builds", deploy_path)
 shared_path = File.expand_path("../shared", deploy_path)
 log_path    = File.join(shared_path, "log")
 pid_path    = File.join(shared_path, "tmp", "pids")
+db_path     = File.join(shared_path, "db")
 
-[builds_path, log_path, pid_path].each do |dir|
+[builds_path, shared_path, log_path, pid_path, db_path].each do |dir|
   directory dir do
     owner "www-data"
     group "www-data"
@@ -46,7 +47,8 @@ execute "update-code" do
     ln -s #{log_path} #{deploy_path}/log
     ln -s #{File.dirname(pid_path)} #{deploy_path}/tmp
     ln -s #{shared_path}/unicorn.rb #{deploy_path}/unicorn.rb
-    chown -R www-data:www-data #{deploy_path}
+    ln -s #{db_path} #{deploy_path}/db
+    chown -R www-data:www-data #{build_dir}
     cd #{deploy_path}
     bundle install
   SH
