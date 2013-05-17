@@ -14,3 +14,11 @@ service "nginx" do
   supports :start => true, :stop => true, :restart => true, :reload => true
 end
 
+template "/etc/nginx/nginx.conf" do
+  source "nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode  "0644"
+  notifies :restart, "service[nginx]"
+end
+

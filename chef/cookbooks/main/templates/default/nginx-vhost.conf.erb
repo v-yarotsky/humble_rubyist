@@ -1,0 +1,17 @@
+upstream <%= @unicorn_instance_name %> {
+  server unix:<%= @unicorn_socket %> fail_timeout=0;
+}
+
+server {
+  listen                80;
+  server_name           <%= @hostname %>;
+  root                  <%= @app_public %>;
+
+  try_files $uri/index.html $uri @<%= @unicorn_instance_name %>;
+
+  error_page 500 502 503 504 /500.html;
+
+  location @<%= @unicorn_instance_name %> {
+    proxy_pass http://<%= @unicorn_instance_name %>;
+  }
+}

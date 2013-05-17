@@ -1,5 +1,5 @@
 def unicorn_instance_name
-  unicorn_instance_name = "unicorn-#{new_resource.name}"
+  unicorn_instance_name = "unicorn_#{new_resource.name}"
 end
 
 action :create do

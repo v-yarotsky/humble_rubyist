@@ -48,17 +48,10 @@ execute "update-code" do
   notifies :restart, "main_unicorn[blog]"
 end
 
-app_public = File.join(current_app, "public")
-
-template "/etc/nginx/conf.d/nginx-blog.conf" do
-  source "nginx.conf.erb"
-  owner "root"
-  group "root"
-  mode  "0644"
-  variables :app_public => app_public,
-            :hostname => node[:blog][:dns_name],
-            :unicorn_socket => "/tmp/unicorn-blog.socket",
-            :unicorn_instance_name => "unicorn_blog"
-  notifies :restart, "service[nginx]"
+main_nginx_unicorn_vhost "blog.yarotsky.me" do
+  app_root current_app
+  unicorn_socket "/tmp/unicorn_blog.socket"
+  unicorn_instance_name "unicorn_blog"
+  action :create
 end
 
