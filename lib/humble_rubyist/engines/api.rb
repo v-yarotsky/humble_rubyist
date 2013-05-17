@@ -12,7 +12,8 @@ module HumbleRubyist
       post "/api/posts" do
         authorize!(params[:key])
         content_type :json
-        if post = Post.create(params[:post])
+        post_params = JSON.parse(request.body.read)
+        if post = Post.create(post_params)
           JSON.dump(post.values)
         else
           error 400, JSON.dump(message: "Can't create post")

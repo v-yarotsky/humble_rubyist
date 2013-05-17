@@ -1,3 +1,4 @@
+require 'rest_client'
 require 'net/http'
 
 module HumbleEditor
@@ -11,32 +12,35 @@ module HumbleEditor
     end
 
     def get(api_path)
-      uri = api_uri(api_path)
-      request = Net::HTTP::Get.new(uri.path)
-      response = Net::HTTP.start(uri.host, uri.port) { |http| http.request(request) }
+      response = RestClient.get api_uri(api_path),
+        accept: :json
       json_result(response)
     end
 
-    def post(api_path, params = {})
-      uri = api_uri(api_path)
-      request = Net::HTTP::Post.new(uri.path)
-      request.form_data = params.merge(key: @key)
-      response = Net::HTTP.start(uri.host, uri.port) { |http| http.request(request) }
+    def post(api_path, data, params = {})
+      response = RestClient.post api_uri(api_path),
+        data.to_json,
+        content_type: :json,
+        accept: :json
       json_result(response)
     end
 
-    def put(api_path, params = {})
-      post api_path, params.merge(:_method => "PUT")
+    def put(api_path, data, params = {})
+      response = RestClient.put api_uri(api_path),
+        data.to_json,
+        content_type: :json,
+        accept: :json
+      json_result(response)
     end
 
     private
 
     def api_uri(api_path)
-      URI.join(@api_root, api_path)
+      URI.join(@api_root, api_path).to_s
     end
 
     def json_result(response)
-      JSON.parse(response.body).merge(success: response.code == "200")
+      JSON.parse(response.body).merge(success: response.code == 200)
     end
   end
 

@@ -48,13 +48,11 @@ module HumbleEditor
     def commit_post!
       raise NoPostError unless @post
 
-      to_params = proc { |post| Hash[post.map { |k, v| ["post[#{k}]", v] }] }
-
       result = if @new_post
         @post[:published_at] = Time.now
-        @api.post("/api/posts", to_params[@post])
+        @api.post("/api/posts", @post)
       else
-        @api.put("/api/posts/#{@post[:id]}", to_params[@post])
+        @api.put("/api/posts/#{@post[:id]}", @post)
       end
       @post = nil if result[:success]
     end
