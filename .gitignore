@@ -12,3 +12,5 @@ coverage/
 Keyfile
 db/
 .bundle
+public/js/*.js
+public/css/*.css
