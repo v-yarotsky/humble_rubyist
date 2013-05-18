@@ -2,7 +2,7 @@ $:.unshift File.expand_path("../lib", __FILE__)
 
 require 'rake/clean'
 
-CLEAN = FileList["public/{js,css}/*.{js,css}"]
+CLEAN << FileList["public/{js,css}/*.{js,css}"]
 
 desc "Ensure database schema"
 task :ensure_schema do |t|

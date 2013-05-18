@@ -15,7 +15,7 @@ current_app  = File.join(deploy_path, "current")
 main_unicorn "blog" do
   path unicorn_path
   app_path current_app
-  environment "development"
+  environment "production"
   action :create
 end
 
@@ -35,6 +35,7 @@ remote_file code_archive do
 end
 
 execute "update-code" do
+  environment("RACK_ENV" => "production")
   build_dir = File.join(builds_path, "humble_rubyist-#{Time.now.strftime("%Y%m%d%H%M%S")}")
   command <<-SH
     mkdir -p #{build_dir}

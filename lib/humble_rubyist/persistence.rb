@@ -1,5 +1,6 @@
 require 'sequel'
 require 'logger'
+require 'yaml'
 
 module HumbleRubyist
 
@@ -12,10 +13,15 @@ module HumbleRubyist
         db
       end
 
+      def environment
+        ENV["RACK_ENV"] || "development"
+      end
+
       def db
         @db ||= begin
           Sequel.default_timezone = :utc
-          db = Sequel.sqlite(HumbleRubyist.path('db/humble_rubyist.db'))
+          connection = YAML.load(File.read(HumbleRubyist.path("db/config.yml")))[environment]
+          db = Sequel.sqlite(connection)
           db.use_timestamp_timezones = false
           db.loggers << Logger.new(STDOUT)
           db

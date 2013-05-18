@@ -4,8 +4,6 @@ module HumbleRubyist
   module Engines
 
     class Api < Sinatra::Base
-      set method_override: true
-
       include Persistence
       include Models
 
