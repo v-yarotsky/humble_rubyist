@@ -11,11 +11,7 @@ gem "sqlite3",         "~> 1.3.7"
 gem "sequel",          "~> 3.47.0"
 gem "shellissimo",     git: "https://github.com/v-yarotsky/shellissimo.git", branch: "master"
 gem "rest-client",     "~> 1.6.7"
-
-case RUBY_PLATFORM
-when /linux/
-  gem "therubyracer"
-end
+gem "therubyracer",    "~> 0.11.4"
 
 
 group :development do
