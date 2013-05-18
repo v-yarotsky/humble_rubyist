@@ -14,6 +14,7 @@ module HumbleRubyist
   end
 
   autoload :Models,     'humble_rubyist/models'
+  autoload :Decorators, 'humble_rubyist/decorators'
   autoload :Presenters, 'humble_rubyist/presenters'
   autoload :Helpers,    'humble_rubyist/helpers'
   autoload :Engines,    'humble_rubyist/engines'
