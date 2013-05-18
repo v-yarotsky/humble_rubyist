@@ -20,7 +20,7 @@ module HumbleRubyist
       def db
         @db ||= begin
           Sequel.default_timezone = :utc
-          connection = YAML.load(File.read(HumbleRubyist.path("db/config.yml")))[environment]
+          connection = YAML.load(File.read(HumbleRubyist.path("config/database.yml")))[environment]
           db = Sequel.sqlite(connection.empty? ? "" : HumbleRubyist.path(connection))
           db.use_timestamp_timezones = false
           db.loggers << Logger.new(STDOUT)

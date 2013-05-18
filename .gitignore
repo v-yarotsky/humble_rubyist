@@ -10,7 +10,7 @@ coverage/
 *.sublime-workspace
 .sass-cache/
 Keyfile
-db/*.db
+db/
 .bundle
 public/js/*.js
 public/css/*.css
