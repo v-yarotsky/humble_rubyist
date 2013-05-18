@@ -10,6 +10,7 @@ unicorn_path = File.join(deploy_path, "unicorn")
 builds_path  = File.join(deploy_path, "builds")
 shared_path  = File.join(deploy_path, "shared")
 db_path      = File.join(shared_path, "db")
+bundle_path  = File.join(shared_path, "vendor/bundle")
 current_app  = File.join(deploy_path, "current")
 
 main_unicorn "blog" do
@@ -19,7 +20,7 @@ main_unicorn "blog" do
   action :create
 end
 
-[deploy_path, builds_path, shared_path, db_path].each do |dir|
+[deploy_path, builds_path, shared_path, db_path, bundle_path].each do |dir|
   directory dir do
     owner "root"
     group "root"
@@ -45,7 +46,7 @@ execute "update-code" do
     ln -s #{db_path} #{current_app}/db
     ln -s #{shared_path}/Keyfile #{current_app}/Keyfile
     cd #{current_app}
-    bundle install --deployment --without=development
+    bundle install --deployment --without=development --path=#{bundle_path}
     bundle exec rake ensure_schema assets:precompile
   SH
   notifies :restart, "main_unicorn[blog]"

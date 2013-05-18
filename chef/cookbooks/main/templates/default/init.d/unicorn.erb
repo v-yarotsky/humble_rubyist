@@ -10,7 +10,7 @@
 pidfile=<%= @unicorn_pid %>
 
 start() {
-  unicorn -c <%= @unicorn_config %> -E <%= @unicorn_environment %> -D -p 3000
+  RACK_ENV=<%= @unicorn_environment %> unicorn -c <%= @unicorn_config %> -D -p 3000
   echo 'done'
   RETVAL=0
   return $RETVAL
