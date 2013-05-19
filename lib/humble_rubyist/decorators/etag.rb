@@ -3,26 +3,21 @@ require 'delegate'
 module HumbleRubyist
   module Decorators
 
+    #
+    # Wraps a Sequel::Model or an enumerable of Sequel::Models
+    # adds #etag
+    #
     class Etag < SimpleDelegator
       class InappropriateEtagSubjectError < StandardError; end
 
-      def self.wrap(things)
-        case things
-        when Sequel::Model
-          new(things)
-        when Enumerable
-          things.map(&method(:new))
-        else
-          raise InappropriateEtagSubjectError, things
-        end
-      end
-
-      def initialize(obj)
-        super(obj)
-      end
-
       def etag
-        values.hash
+        if __getobj__.kind_of?(Enumerable)
+          __getobj__.inject(1) { |hash, m| m.values.hash ^ hash }
+        elsif __getobj__.respond_to?(:values)
+          __getobj__.values.hash
+        else
+          raise InappropriateEtagSubjectError, __getobj__
+        end
       end
     end
 

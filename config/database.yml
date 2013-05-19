@@ -1,4 +1,0 @@
-development: "db/humble_rubyist_development.db"
-test: ""
-production: "db/humble_rubyist.db"
-

@@ -1,7 +1,5 @@
 require 'forwardable'
 
-require 'humble_rubyist/markdown_post_renderer'
-
 module HumbleRubyist
   module Presenters
 

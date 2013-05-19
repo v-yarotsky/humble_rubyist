@@ -3,8 +3,6 @@ require 'sinatra/base'
 require 'slim'
 
 require 'humble_rubyist'
-require 'humble_rubyist/persistence'
-require 'humble_rubyist/markdown_post_renderer'
 
 module HumbleRubyist
 

@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class HRModelTest < HRTest
-  require 'humble_rubyist/persistence'
-  require 'humble_rubyist/models'
-
   include HumbleRubyist::Persistence
   include HumbleRubyist::Models
 
