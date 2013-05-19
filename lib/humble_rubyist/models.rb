@@ -1,3 +1,5 @@
+require 'sequel'
+
 module HumbleRubyist
   module Models
 

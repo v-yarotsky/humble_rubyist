@@ -69,4 +69,11 @@ namespace :assets do
   task :precompile => [:coffeescripts, :stylesheets]
 end
 
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/humble_rubyist/**/test_*.rb'].exclude(/test_helper\.rb/)
+end
+
 task :default => :server
