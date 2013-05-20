@@ -7,7 +7,6 @@ require 'humble_rubyist'
 module HumbleRubyist
 
   class Application < Sinatra::Base
-    include Persistence
     include Models
     include Helpers::Gravatar
     include Helpers::Rendering

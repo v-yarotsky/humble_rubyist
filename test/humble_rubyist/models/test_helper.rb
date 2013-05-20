@@ -11,4 +11,3 @@ class HRModelTest < HRTest
   end
 end
 
-

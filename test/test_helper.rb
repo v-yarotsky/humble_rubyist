@@ -2,10 +2,26 @@ require 'bundler/setup'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-$:.unshift File.expand_path("../../lib", __FILE__)
-require 'humble_rubyist'
+lib = File.expand_path("../../lib", __FILE__)
+$:.unshift lib
 
 ENV["RACK_ENV"] = "test"
+
+if ENV["COVERAGE"]
+  require 'simplecov'
+  if ENV["TRAVIS"]
+    require 'coveralls'
+    SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  end
+  SimpleCov.start do
+    add_filter "/test/"
+  end
+  require 'humble_rubyist'
+  HumbleRubyist::Persistence.ensure_schema!
+  Dir.glob(File.join(lib, "**", "*.rb")).each { |f| require f }
+end
+
+require 'humble_rubyist'
 
 class HRTest < Minitest::Test
   def self.test(name, &block)

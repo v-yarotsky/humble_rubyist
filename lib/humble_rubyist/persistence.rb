@@ -10,7 +10,6 @@ module HumbleRubyist
 
       def included(klass)
         klass.send(:include, InstanceMethods)
-        db
       end
 
       def db
