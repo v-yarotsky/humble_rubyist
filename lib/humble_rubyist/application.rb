@@ -16,6 +16,11 @@ module HumbleRubyist
     set :public_folder, HumbleRubyist.path("public")
     set :views, HumbleRubyist.path("templates")
 
+    enable :raise_errors
+    disable :show_exceptions
+
+    set :slim, pretty: true
+
     use Engines::Admin
     use Engines::Scss
     use Engines::Coffee

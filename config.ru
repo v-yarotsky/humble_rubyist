@@ -1,7 +1,6 @@
-lib = File.expand_path("../lib/", __FILE__)
-$:.unshift lib
+$:.unshift File.expand_path("../lib/", __FILE__)
 
-require "humble_rubyist/application"
+require 'humble_rubyist/application'
 
 run HumbleRubyist::Application
 

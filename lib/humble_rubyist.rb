@@ -33,6 +33,7 @@ module HumbleRubyist
 
   autoload :Config,      'humble_rubyist/config'
   autoload :Persistence, 'humble_rubyist/persistence'
+  autoload :Application, 'humble_rubyist/application'
 
   autoload :MarkdownPostRenderer, 'humble_rubyist/markdown_post_renderer'
 

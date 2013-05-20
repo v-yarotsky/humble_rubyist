@@ -13,10 +13,12 @@ gem "shellissimo",     git: "https://github.com/v-yarotsky/shellissimo.git", bra
 gem "rest-client",     "~> 1.6.7"
 gem "therubyracer",    "~> 0.11.4"
 
-
 group :development do
-  gem "shotgun",         "~> 0.9"
-  gem "minitest",        "~> 5.0.1"
+  gem "shotgun",                "~> 0.9"
+  gem "minitest",               "~> 5.0.1"
+  gem "capybara",               "~> 2.1.0"
+  gem "capybara_minitest_spec", "~> 1.0.0"
+  gem "pry",                    "~> 0.9.12"
 end
 
 
