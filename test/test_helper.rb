@@ -18,6 +18,7 @@ if ENV["COVERAGE"]
   end
   require 'humble_rubyist'
   HumbleRubyist::Persistence.ensure_schema!
+  Bundler.require(:default, HumbleRubyist.environment)
   Dir.glob(File.join(lib, "**", "*.rb")).each { |f| require f }
 end
 
