@@ -1,7 +1,12 @@
 include_recipe "main::nginx"
 
-package "unzip"
-package "libsqlite3-dev"
+%w(
+  unzip
+  libsqlite3-dev
+  libxml2-dev
+  libxslt1-dev
+).each { |pkg| package pkg }
+
 gem_package "bundler"
 
 deploy_path  = node[:blog][:deploy_path]
