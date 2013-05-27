@@ -14,6 +14,10 @@ class HRRequestTest < HRTest
 
   Capybara.app = HumbleRubyist::Application
 
+  def app
+    Capybara.app
+  end
+
   def teardown
     [:posts].each { |t| db.from(t).truncate }
     Capybara.reset_sessions!

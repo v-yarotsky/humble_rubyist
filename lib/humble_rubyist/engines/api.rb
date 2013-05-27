@@ -7,17 +7,6 @@ module HumbleRubyist
       include Persistence
       include Models
 
-      post "/api/posts" do
-        authorize!(params[:key])
-        content_type :json
-        post_params = JSON.parse(request.body.read)
-        if post = Post.create(post_params)
-          JSON.dump(post.values)
-        else
-          error 400, JSON.dump(message: "Can't create post")
-        end
-      end
-
       get "/api/posts" do
         content_type :json
         posts = Post.all
@@ -33,19 +22,31 @@ module HumbleRubyist
         end
       end
 
+      post "/api/posts" do
+        begin
+          authorize!(params[:key])
+          content_type :json
+          post_params = JSON.parse(request.body.read)
+          post = Post.create(post_params)
+          JSON.dump(post.values)
+        rescue Models::ValidationError => e
+          error 400, JSON.dump(message: "Can't create post")
+        end
+      end
+
       put "/api/posts/:id" do
-        authorize!(params[:key])
-        post_params = JSON.parse(request.body.read)
-        content_type :json
-        if post = Post[params[:id]]
-          post.set_fields(post_params, ["title", "slug", "content"])
-          if post.save
+        begin
+          authorize!(params[:key])
+          post_params = JSON.parse(request.body.read)
+          content_type :json
+          if post = Post[params[:id]]
+            post.update(post_params, ["title", "slug", "content"])
             JSON.dump(post.values)
           else
-            error 400, JSON.dump(message: "Can't update post")
+            error 404, JSON.dump(message: "Not found")
           end
-        else
-          error 404, JSON.dump(message: "Not found")
+        rescue Models::ValidationError => e
+          error 400, JSON.dump(message: "Can't update post")
         end
       end
 
