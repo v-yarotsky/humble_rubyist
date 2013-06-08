@@ -73,6 +73,31 @@ namespace :assets do
   task :precompile => [:coffeescripts, :stylesheets]
 end
 
+namespace :db do
+  desc "Create a database migration"
+  task :create_migration do
+    require 'humble_rubyist'
+    timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+    name = ARGV.last
+    raise ArgumentError, "Bad migration name" unless /\A\w[\w_]*\Z/ =~ name
+    migration_name = [timestamp, name].join("_")
+
+    task name do # dirty hack
+      migration_file =  HumbleRubyist.path("migrations/#{migration_name}.rb")
+      File.open(migration_file, "w") do |f|
+        f.write <<-EOS.strip
+Sequel.migration do
+  change do
+
+  end
+end
+        EOS
+      end
+      system(ENV["EDITOR"], migration_file)
+    end
+  end
+end
+
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|

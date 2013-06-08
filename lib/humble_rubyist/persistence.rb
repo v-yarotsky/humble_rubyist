@@ -9,26 +9,25 @@ module HumbleRubyist
       attr_accessor :connection
 
       def ensure_schema!
-        db.create_table? :posts do
-          primary_key :id
-          String      :slug
-          String      :title
-          String      :content
-          DateTime    :published_at
-          String      :icon
-
-          unique [:slug, :published_at]
+        Sequel.extension :migration
+        unless Sequel::Migrator.is_current?(db, HumbleRubyist.path("migrations"))
+          HumbleRubyist.debug_db!
+          Sequel::Migrator.run(db, HumbleRubyist.path("migrations"))
         end
+      end
+
+      def connection_config
+        db_file = HumbleRubyist.config.db.fetch(HumbleRubyist.environment)
+        db_file.empty? ? "" : HumbleRubyist.path(db_file)
       end
     end
 
     def db
       Persistence.connection ||= begin
         Sequel.default_timezone = :utc
-        connection_config = HumbleRubyist.config.db.fetch(HumbleRubyist.environment)
-        connection = Sequel.sqlite(connection_config.empty? ? "" : HumbleRubyist.path(connection_config))
+        connection = Sequel.sqlite(Persistence.connection_config)
         connection.use_timestamp_timezones = false
-        if HumbleRubyist.environment == :development
+        if HumbleRubyist.debug_db?
           connection.loggers << Logger.new(STDOUT)
         end
         connection

@@ -64,11 +64,11 @@ class TestApi < HRRequestTest
   end
 
   def first_post_attributes
-    { "slug" => "post-1", "title" => "Post1", "content" => "Test post 1\n<!-- more -->\nUndercut1", "published_at" => "2013-01-02 00:00:00 UTC", "icon" => nil }
+    { "slug" => "post-1", "title" => "Post1", "content" => "Test post 1\n<!-- more -->\nUndercut1", "published_at" => "2013-01-02 00:00:00 UTC", "icon" => nil, "published" => true }
   end
 
   def second_post_attributes
-    { "slug" => "post-2", "title" => "Post2", "content" => "Test post 2\n<!-- more -->\nUndercut2", "published_at" => "2013-01-03 00:00:00 UTC", "icon" => nil }
+    { "slug" => "post-2", "title" => "Post2", "content" => "Test post 2\n<!-- more -->\nUndercut2", "published_at" => "2013-01-03 00:00:00 UTC", "icon" => nil, "published" => true }
   end
 end
 

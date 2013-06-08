@@ -23,6 +23,14 @@ module HumbleRubyist
     def load_config!
       self.config = eval(File.read(path("config/config.rb")))
     end
+
+    def debug_db?
+      environment == :development || @debug_db
+    end
+
+    def debug_db!
+      @debug_db = true
+    end
   end
 
   autoload :Models,      'humble_rubyist/models'
