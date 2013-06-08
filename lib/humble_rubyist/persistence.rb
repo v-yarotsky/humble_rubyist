@@ -6,24 +6,7 @@ module HumbleRubyist
 
   module Persistence
     class << self
-      attr_reader :db
-
-      def included(klass)
-        klass.send(:include, InstanceMethods)
-      end
-
-      def db
-        @db ||= begin
-          Sequel.default_timezone = :utc
-          connection = HumbleRubyist.config.db.fetch(HumbleRubyist.environment)
-          db = Sequel.sqlite(connection.empty? ? "" : HumbleRubyist.path(connection))
-          db.use_timestamp_timezones = false
-          if HumbleRubyist.environment == :development
-            db.loggers << Logger.new(STDOUT)
-          end
-          db
-        end
-      end
+      attr_accessor :connection
 
       def ensure_schema!
         db.create_table? :posts do
@@ -39,11 +22,19 @@ module HumbleRubyist
       end
     end
 
-    module InstanceMethods
-      def db
-        Persistence.db
+    def db
+      Persistence.connection ||= begin
+        Sequel.default_timezone = :utc
+        connection_config = HumbleRubyist.config.db.fetch(HumbleRubyist.environment)
+        connection = Sequel.sqlite(connection_config.empty? ? "" : HumbleRubyist.path(connection_config))
+        connection.use_timestamp_timezones = false
+        if HumbleRubyist.environment == :development
+          connection.loggers << Logger.new(STDOUT)
+        end
+        connection
       end
     end
+    module_function :db
   end
 
 end
