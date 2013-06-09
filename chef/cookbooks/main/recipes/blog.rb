@@ -2,6 +2,7 @@ include_recipe "main::nginx"
 
 %w(
   unzip
+  sqlite3
   libsqlite3-dev
   libxml2-dev
   libxslt1-dev
