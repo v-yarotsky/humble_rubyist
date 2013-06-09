@@ -8,6 +8,10 @@ module HumbleRubyist
         all.sort_by(&:published_at).reverse
       end
 
+      def self.published(posts)
+        posts.select(&:published)
+      end
+
       def self.find_by_date_and_slug(date, slug)
         where(Sequel.lit("date(published_at)") => date, :slug => slug).first
       end

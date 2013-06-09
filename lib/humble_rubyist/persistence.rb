@@ -25,7 +25,7 @@ module HumbleRubyist
     def db
       Persistence.connection ||= begin
         Sequel.default_timezone = :utc
-        connection = Sequel.sqlite(Persistence.connection_config)
+        connection = Sequel.sqlite(Persistence.connection_config, integer_booleans: true)
         connection.use_timestamp_timezones = false
         if HumbleRubyist.debug_db?
           connection.loggers << Logger.new(STDOUT)

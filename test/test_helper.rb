@@ -15,6 +15,7 @@ if ENV["COVERAGE"]
   end
   SimpleCov.start do
     add_filter "/test/"
+    add_filter "/migrations/"
   end
   require 'humble_rubyist'
   HumbleRubyist::Persistence.ensure_schema!

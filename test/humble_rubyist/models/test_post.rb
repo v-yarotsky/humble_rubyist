@@ -14,6 +14,12 @@ class PostTest < HRModelTest
     assert_equal [p2, p1, p3], Post.ordered_by_date.map(&:id)
   end
 
+  test ".published returns only published posts" do
+    p1 = Post.insert(published: true)
+    p2 = Post.insert(published: false)
+    assert_equal [p1], Post.published(Post.all).map(&:id)
+  end
+
   test "is created with valid attributes" do
     assert Post.create(title: "Post 1", slug: "post-1", content: "Ohai"), "expected Post to be created"
   end

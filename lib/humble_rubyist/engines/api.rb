@@ -40,7 +40,7 @@ module HumbleRubyist
           post_params = JSON.parse(request.body.read)
           content_type :json
           if post = Post[params[:id]]
-            post.update(post_params, ["title", "slug", "content"])
+            post.update(post_params, ["title", "slug", "content", "published"])
             JSON.dump(post.values)
           else
             error 404, JSON.dump(message: "Not found")

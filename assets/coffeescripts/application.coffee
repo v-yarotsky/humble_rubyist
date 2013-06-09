@@ -7,7 +7,8 @@ class window.Post extends Backbone.Model
     slug:          "",
     published_at:  "",
     content:       "",
-    icon:          ""
+    icon:          "",
+    published:     false
 
 class window.PostsCollection extends Backbone.Collection
   model: Post
@@ -47,11 +48,13 @@ class window.PostView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON()))
+    $(@el).find(":checkbox").each (idx, cb) =>
+      $(cb).attr("checked", "checked") if @model.get(cb.name)
 
   change: (event) ->
     target = event.target
     change = {}
-    change[target.name] = target.value
+    change[target.name] = if $(target).is(":checkbox") then target.checked else target.value
     @model.set(change)
 
   save_post: ->

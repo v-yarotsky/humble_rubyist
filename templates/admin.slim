@@ -60,6 +60,11 @@ html
                   .controls
                     input#postIcon name="icon" type="text" value="<%= icon %>"
                 .control-group
+                  .controls
+                    label.checkbox for="postPublished"
+                      input#postPublished type="checkbox" name="published" value="1"
+                      | Published
+                .control-group
                   label.control-label for="postContent" Content:
                   .controls
                     textarea#postContent.span8 name="content" rows="20" <%= content %>
