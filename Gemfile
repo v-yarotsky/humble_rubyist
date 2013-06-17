@@ -9,8 +9,6 @@ gem "coffee-script",   "~> 2.2.0"
 gem "slim",            "~> 1.3.8"
 gem "sqlite3",         "~> 1.3.7"
 gem "sequel",          "~> 3.47.0"
-gem "shellissimo",     git: "https://github.com/v-yarotsky/shellissimo.git", branch: "master"
-gem "rest-client",     "~> 1.6.7"
 gem "therubyracer",    "~> 0.11.4"
 
 group :development, :test do

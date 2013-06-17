@@ -27,15 +27,6 @@ task :console do |t|
   IRB.start
 end
 
-desc "Start editor shell"
-task :editor do |t|
-  pid = fork do
-    $0 = File.expand_path("../lib/humble_editor/application.rb", __FILE__)
-    require 'humble_editor/application'
-  end
-  Process.waitpid2(pid)
-end
-
 namespace :assets do
   desc "Precompile coffeescripts"
   task :coffeescripts do |t|
