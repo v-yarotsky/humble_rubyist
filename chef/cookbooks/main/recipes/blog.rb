@@ -1,4 +1,5 @@
 include_recipe "main::nginx"
+include_recipe "main::mongodb"
 
 %w(
   unzip

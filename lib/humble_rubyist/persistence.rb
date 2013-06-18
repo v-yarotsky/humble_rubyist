@@ -1,4 +1,5 @@
 require 'sequel'
+require 'mongoid'
 require 'logger'
 require 'yaml'
 
@@ -19,6 +20,12 @@ module HumbleRubyist
       def connection_config
         db_file = HumbleRubyist.config.db.fetch(HumbleRubyist.environment)
         db_file.empty? ? "" : HumbleRubyist.path(db_file)
+      end
+
+      def configure_mongodb
+        Mongoid.configure do |config|
+          config.load_configuration HumbleRubyist.config.mongodb.fetch(HumbleRubyist.environment)
+        end
       end
     end
 
