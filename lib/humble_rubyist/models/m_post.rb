@@ -11,6 +11,8 @@ module HumbleRubyist
       field :created_at,   type: Time
       field :published_at, type: Time
 
+      validates_presence_of :title, :slug, :content
+
       def self.migrate_from_sequel
         Post.all.each do |p|
           create(
@@ -22,6 +24,38 @@ module HumbleRubyist
             published_at:  p.published_at
           )
         end
+      end
+
+      def self.published(posts)
+        posts.select(&:published?)
+      end
+
+      def self.find_by_date_and_slug(date, slug)
+        find_by(
+          :published_at.gte => date.to_time.beginning_of_day,
+          :published_at.lte => date.to_time.end_of_day,
+          :slug => slug
+        )
+      end
+
+      def self.ordered_by_date
+        all.to_a.sort_by(&:published_at).reverse
+      end
+
+      def self.create!(attributes)
+        super
+      rescue Mongoid::Errors::Validations => e
+        raise ValidationError, e
+      end
+
+      def update!(*args)
+        update_attributes!(*args)
+      rescue Mongoid::Errors::Validations => e
+        raise ValidationError, e
+      end
+
+      def published?
+        !!published_at
       end
 
     end
