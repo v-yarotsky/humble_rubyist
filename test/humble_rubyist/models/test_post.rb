@@ -1,4 +1,4 @@
-require 'humble_rubyist/models/test_helper'
+require "humble_rubyist/models/test_helper"
 
 class PostTest < HRModelTest
   test ".find_by_date_and_slug returns a corresponding post" do

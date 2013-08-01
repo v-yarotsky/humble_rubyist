@@ -1,4 +1,4 @@
-require 'sequel'
+require "sequel"
 
 module HumbleRubyist
   module Models
@@ -9,8 +9,8 @@ module HumbleRubyist
 
     Persistence.configure_mongodb
 
-    autoload :Post, 'humble_rubyist/models/post'
-    autoload :MPost, 'humble_rubyist/models/m_post'
+    autoload :Post,  "humble_rubyist/models/post"
+    autoload :MPost, "humble_rubyist/models/m_post"
   end
 end
 

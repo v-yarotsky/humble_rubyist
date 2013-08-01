@@ -1,8 +1,8 @@
-require 'test_helper'
-require 'humble_rubyist/application'
-require 'capybara_minitest_spec'
+require "test_helper"
+require "humble_rubyist/application"
+require "capybara_minitest_spec"
 
-require 'capybara/dsl'
+require "capybara/dsl"
 
 class HRRequestTest < HRTest
   include Rack::Test::Methods

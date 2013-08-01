@@ -1,8 +1,8 @@
-require 'bundler/setup'
-require 'sinatra/base'
-require 'slim'
+require "bundler/setup"
+require "sinatra/base"
+require "slim"
 
-require 'humble_rubyist'
+require "humble_rubyist"
 
 module HumbleRubyist
 

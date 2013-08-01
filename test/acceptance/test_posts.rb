@@ -1,4 +1,4 @@
-require 'acceptance/test_helper'
+require "acceptance/test_helper"
 
 class TestPosts < HRRequestTest
   test "GET / renders layout" do

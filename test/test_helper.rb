@@ -1,6 +1,6 @@
-require 'bundler/setup'
-require 'minitest/autorun'
-require 'minitest/pride'
+require "bundler/setup"
+require "minitest/autorun"
+require "minitest/pride"
 
 lib = File.expand_path("../../lib", __FILE__)
 $:.unshift lib
@@ -8,22 +8,22 @@ $:.unshift lib
 ENV["RACK_ENV"] = "test"
 
 if ENV["COVERAGE"]
-  require 'simplecov'
+  require "simplecov"
   if ENV["TRAVIS"]
-    require 'coveralls'
+    require "coveralls"
     SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   end
   SimpleCov.start do
     add_filter "/test/"
     add_filter "/migrations/"
   end
-  require 'humble_rubyist'
+  require "humble_rubyist"
   HumbleRubyist::Persistence.ensure_schema!
   Bundler.require(:default, HumbleRubyist.environment)
   Dir.glob(File.join(lib, "**", "*.rb")).each { |f| require f }
 end
 
-require 'humble_rubyist'
+require "humble_rubyist"
 
 class HRTest < Minitest::Test
   def self.test(name, &block)

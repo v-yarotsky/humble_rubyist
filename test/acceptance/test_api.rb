@@ -1,4 +1,4 @@
-require 'acceptance/test_helper'
+require "acceptance/test_helper"
 
 class TestApi < HRRequestTest
   test "GET /api/posts renders json for all posts" do

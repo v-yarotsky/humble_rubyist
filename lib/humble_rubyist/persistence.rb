@@ -1,7 +1,7 @@
-require 'sequel'
-require 'mongoid'
-require 'logger'
-require 'yaml'
+require "sequel"
+require "mongoid"
+require "logger"
+require "yaml"
 
 module HumbleRubyist
 

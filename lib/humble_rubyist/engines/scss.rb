@@ -1,4 +1,4 @@
-require 'sass'
+require "sass"
 
 module HumbleRubyist
   module Engines

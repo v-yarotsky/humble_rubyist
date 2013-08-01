@@ -7,7 +7,7 @@ class window.Post extends Backbone.Model
     slug:          "",
     published_at:  "",
     content:       "",
-    icon:          "",
+    category:      "",
     published:     false
 
 class window.PostsCollection extends Backbone.Collection

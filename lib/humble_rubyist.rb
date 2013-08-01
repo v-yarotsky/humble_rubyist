@@ -33,17 +33,17 @@ module HumbleRubyist
     end
   end
 
-  autoload :Models,      'humble_rubyist/models'
-  autoload :Decorators,  'humble_rubyist/decorators'
-  autoload :Presenters,  'humble_rubyist/presenters'
-  autoload :Helpers,     'humble_rubyist/helpers'
-  autoload :Engines,     'humble_rubyist/engines'
+  autoload :Models,      "humble_rubyist/models"
+  autoload :Decorators,  "humble_rubyist/decorators"
+  autoload :Presenters,  "humble_rubyist/presenters"
+  autoload :Helpers,     "humble_rubyist/helpers"
+  autoload :Engines,     "humble_rubyist/engines"
 
-  autoload :Config,      'humble_rubyist/config'
-  autoload :Persistence, 'humble_rubyist/persistence'
-  autoload :Application, 'humble_rubyist/application'
+  autoload :Config,      "humble_rubyist/config"
+  autoload :Persistence, "humble_rubyist/persistence"
+  autoload :Application, "humble_rubyist/application"
 
-  autoload :MarkdownPostRenderer, 'humble_rubyist/markdown_post_renderer'
+  autoload :MarkdownPostRenderer, "humble_rubyist/markdown_post_renderer"
 
   load_config!
 end

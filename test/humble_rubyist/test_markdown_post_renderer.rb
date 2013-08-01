@@ -1,5 +1,5 @@
-require 'test_helper'
-require 'ostruct'
+require "test_helper"
+require "ostruct"
 
 class TestMarkdownPostRenderer < HRTest
   test "simply renders Post to HTML" do

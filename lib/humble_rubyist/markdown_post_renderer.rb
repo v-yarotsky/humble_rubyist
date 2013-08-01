@@ -1,5 +1,5 @@
-require 'redcarpet'
-require 'pygments'
+require "redcarpet"
+require "pygments"
 
 module HumbleRubyist
 
