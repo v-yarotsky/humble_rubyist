@@ -6,11 +6,8 @@ require "capybara/dsl"
 
 class HRRequestTest < HRTest
   include Rack::Test::Methods
-  include HumbleRubyist::Persistence
   include HumbleRubyist::Models
   include Capybara::DSL
-
-  HumbleRubyist::Persistence.ensure_schema!
 
   Capybara.app = HumbleRubyist::Application
 
@@ -19,7 +16,7 @@ class HRRequestTest < HRTest
   end
 
   def teardown
-    [:posts].each { |t| db.from(t).truncate }
+    Mongoid.session("default").drop
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end

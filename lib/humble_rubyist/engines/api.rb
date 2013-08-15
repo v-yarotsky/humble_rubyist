@@ -9,13 +9,13 @@ module HumbleRubyist
 
       get "/api/posts" do
         content_type :json
-        posts = Post.all
+        posts = Post.all.to_a
         JSON.dump(posts: posts.map(&:values))
       end
 
       get "/api/posts/:id" do
         content_type :json
-        if post = Post[params[:id]]
+        if post = Post.find(params[:id])
           JSON.dump(post.values)
         else
           error 404, JSON.dump(message: "Not found")
@@ -27,7 +27,7 @@ module HumbleRubyist
           authorize!(params[:key])
           content_type :json
           post_params = JSON.parse(request.body.read)
-          post = Post.create(post_params)
+          post = Post.create!(post_params)
           JSON.dump(post.values)
         rescue Models::ValidationError => e
           error 400, JSON.dump(message: "Can't create post")
@@ -39,8 +39,8 @@ module HumbleRubyist
           authorize!(params[:key])
           post_params = JSON.parse(request.body.read)
           content_type :json
-          if post = Post[params[:id]]
-            post.update(post_params, ["title", "slug", "content", "published"])
+          if post = Post.find(params[:id])
+            post.update!(post_params, ["title", "slug", "content", "published"])
             JSON.dump(post.values)
           else
             error 404, JSON.dump(message: "Not found")

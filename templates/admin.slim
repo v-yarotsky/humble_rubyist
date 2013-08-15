@@ -30,7 +30,7 @@ html
     script src="js/application.js"
 
     script type="text/template" class="PostListItemViewTemplate"
-      span.icon class="<%= icon %>"
+      span.icon class="<%= category %>"
       a href="#posts/<%= id %>" class="post"
         h5 <%= title %>
       time <%= published_at %>
@@ -58,7 +58,7 @@ html
                 .control-group
                   label.control-label for="postIcon" Icon:
                   .controls
-                    input#postIcon name="icon" type="text" value="<%= icon %>"
+                    input#postIcon name="category" type="text" value="<%= category %>"
                 .control-group
                   .controls
                     label.checkbox for="postPublished"

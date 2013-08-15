@@ -6,17 +6,21 @@ class TestApi < HRRequestTest
     get "/api/posts"
     expected_response = {
       "posts" => [
-        { "id" => Post.first.id }.merge(first_post_attributes),
-        { "id" => Post.last.id  }.merge(second_post_attributes)
+        first_post_attributes.merge("id" => Post.first.id.to_s),
+        second_post_attributes.merge("id" => Post.last.id.to_s)
       ]
     }
     assert_equal expected_response, JSON.load(last_response.body)
   end
 
+  def assert_same_values(h1, h2)
+    h1.keys.sort == h2.keys.sort && h1.all? { |k, v| h2[k] == v }
+  end
+
   test "GET /api/posts/:id renders json for particular post" do
     create_posts
     get "/api/posts/#{Post.first.id}"
-    expected_response = { "id" => Post.first.id }.merge(first_post_attributes)
+    expected_response = { "id" => Post.first.id.to_s }.merge(first_post_attributes)
     assert_equal expected_response, JSON.load(last_response.body)
   end
 
@@ -59,16 +63,16 @@ class TestApi < HRRequestTest
   private
 
   def create_posts
-    Post.create(first_post_attributes)
-    Post.create(second_post_attributes)
+    Post.create!(first_post_attributes)
+    Post.create!(second_post_attributes)
   end
 
   def first_post_attributes
-    { "slug" => "post-1", "title" => "Post1", "content" => "Test post 1\n<!-- more -->\nUndercut1", "published_at" => "2013-01-02 00:00:00 UTC", "icon" => nil, "published" => true }
+    { "slug" => "post-1", "title" => "Post1", "content" => "Test post 1\n<!-- more -->\nUndercut1", "published_at" => "2013-01-02T00:00:00Z", "category" => nil, "published" => true }
   end
 
   def second_post_attributes
-    { "slug" => "post-2", "title" => "Post2", "content" => "Test post 2\n<!-- more -->\nUndercut2", "published_at" => "2013-01-03 00:00:00 UTC", "icon" => nil, "published" => true }
+    { "slug" => "post-2", "title" => "Post2", "content" => "Test post 2\n<!-- more -->\nUndercut2", "published_at" => "2013-01-03T00:00:00Z", "category" => nil, "published" => true }
   end
 end
 

@@ -34,7 +34,7 @@ class window.PostsListView extends Backbone.View
   render: ->
     posts = @collection.models
     $(@el).html("<ul class=\"posts\"></ul>")
-    $(".posts", @el).append(new PostListItemView(model: post).render().el) for post in posts
+    $(@el).append(new PostListItemView(model: post).render().el) for post in posts
     @
 
 class window.PostView extends Backbone.View

@@ -1,6 +1,6 @@
 section.post
   header
-    span.icon class="#{locals[:post].icon}"
+    span.icon class="#{locals[:post].category}"
     time datetime="#{locals[:post].iso_published_at}"= locals[:post].published_at
     h2
       a href="#{locals[:post].permalink}"

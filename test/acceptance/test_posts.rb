@@ -40,9 +40,9 @@ class TestPosts < HRRequestTest
   private
 
   def create_posts
-    Post.create(title: "Post1", slug: "post-1", published_at: Date.parse("2013-01-02"), content: "Test post 1\n<!-- more -->\nUndercut1", "published" => true)
-    Post.create(title: "Post2", slug: "post-2", published_at: Date.parse("2013-01-03"), content: "Test post 2\n<!-- more -->\nUndercut2", "published" => true)
-    Post.create(title: "Post3", slug: "post-3", published_at: Date.parse("2013-01-04"), content: "Test post 3\n<!-- more -->\nUndercut3", "published" => false)
+    Post.create!(title: "Post1", slug: "post-1", published_at: Date.parse("2013-01-02"), content: "Test post 1\n<!-- more -->\nUndercut1")
+    Post.create!(title: "Post2", slug: "post-2", published_at: Date.parse("2013-01-03"), content: "Test post 2\n<!-- more -->\nUndercut2")
+    Post.create!(title: "Post3", slug: "post-3", published_at: nil, content: "Test post 3\n<!-- more -->\nUndercut3")
   end
 end
 

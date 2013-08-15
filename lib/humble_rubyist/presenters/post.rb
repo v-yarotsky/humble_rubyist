@@ -6,7 +6,7 @@ module HumbleRubyist
     class Post
       extend Forwardable
 
-      def_delegators :@post, :title, :published_at, :icon
+      def_delegators :@post, :title, :published_at, :category
 
       def initialize(post, renderer = MarkdownPostRenderer.new)
         @post, @renderer = post, renderer

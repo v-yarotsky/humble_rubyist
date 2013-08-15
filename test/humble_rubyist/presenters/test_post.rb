@@ -1,24 +1,25 @@
-require 'test_helper'
+require "test_helper"
+require "date"
 
 class TestPostPresenter < HRTest
   class DummyPost
-    attr_accessor :title, :published_at, :icon, :slug
+    attr_accessor :title, :published_at, :category, :slug
   end
 
   def setup
     @dummy_post = DummyPost.new.tap do |p|
       p.title = "test"
       p.published_at = Date.parse("2013-01-01 20:00:00")
-      p.icon = "icon"
+      p.category = "category"
       p.slug = "test-slug"
     end
 
     super
   end
 
-  test "delegates :title, :icon to Post" do
+  test "delegates :title, :category to Post" do
     assert_equal "test", presenter(@dummy_post).title
-    assert_equal "icon", presenter(@dummy_post).icon
+    assert_equal "category", presenter(@dummy_post).category
   end
 
   test "#published_at formats date" do
