@@ -8,16 +8,16 @@ class PostTest < HRModelTest
   end
 
   test ".ordered_by_date returns all posts starting with newest" do
-    p1 = insert_post(published_at: Date.parse("2013-01-05"))
-    p2 = insert_post(published_at: Date.parse("2013-01-20"))
-    p3 = insert_post(published_at: Date.parse("2013-01-01"))
-    assert_equal [p2, p1, p3], Post.ordered_by_date(Post.all)
+    p1 = build_post(published_at: Date.parse("2013-01-05"))
+    p2 = build_post(published_at: Date.parse("2013-01-20"))
+    p3 = build_post(published_at: Date.parse("2013-01-01"))
+    assert_equal [p2, p1, p3], Post.ordered_by_date([p1, p2, p3])
   end
 
   test ".published returns only published posts" do
-    p1 = insert_post(published_at: Date.today)
-    p2 = insert_post(published_at: nil)
-    assert_equal [p1], Post.published
+    p1 = build_post(published_at: Date.today)
+    p2 = build_post(published_at: nil)
+    assert_equal [p1], Post.published([p1, p2])
   end
 
   test "is created with valid attributes" do
@@ -52,7 +52,11 @@ class PostTest < HRModelTest
   end
 
   def insert_post(attributes = {})
-    Post.new(attributes).tap { |p| p.save!(validate: false) }
+    build_post(attributes).tap { |p| p.save!(validate: false) }
+  end
+
+  def build_post(attributes = {})
+    Post.new(attributes)
   end
 
   def create_post(attributes = {})

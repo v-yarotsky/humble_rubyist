@@ -16,7 +16,7 @@ class HRRequestTest < HRTest
   end
 
   def teardown
-    Mongoid.session("default").drop
+    teardown_database
     Capybara.reset_sessions!
     Capybara.use_default_driver
   end

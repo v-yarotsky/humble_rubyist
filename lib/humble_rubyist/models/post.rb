@@ -13,8 +13,8 @@ module HumbleRubyist
 
       validates_presence_of :title, :slug, :content
 
-      def self.published
-        all.to_a.select(&:published?)
+      def self.published(posts)
+        posts.select(&:published?)
       end
 
       def self.find_by_date_and_slug(date, slug)

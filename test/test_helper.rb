@@ -15,10 +15,8 @@ if ENV["COVERAGE"]
   end
   SimpleCov.start do
     add_filter "/test/"
-    add_filter "/migrations/"
   end
   require "humble_rubyist"
-  HumbleRubyist::Persistence.ensure_schema!
   Bundler.require(:default, HumbleRubyist.environment)
   Dir.glob(File.join(lib, "**", "*.rb")).each { |f| require f }
 end
@@ -33,6 +31,14 @@ class HRTest < Minitest::Test
   end
 
   def self.xtest(*)
+  end
+
+  def teardown_database
+    session = Mongoid.session("default")
+    session['system.namespaces'].find(:name => { '$not' => /system|\$/ }).to_a.each do |collection|
+      _, collection_name = collection['name'].split('.', 2)
+      session[collection_name].find.remove_all
+    end
   end
 end
 
