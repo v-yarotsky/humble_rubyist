@@ -54,7 +54,7 @@ execute "update-code" do
     ln -s #{shared_path}/Keyfile #{current_app}/Keyfile
     cd #{current_app}
     bundle install --deployment --without=development --path=#{bundle_path}
-    bundle exec rake ensure_schema assets:precompile
+    bundle exec rake assets:precompile
   SH
   notifies :restart, "main_unicorn[blog]"
 end

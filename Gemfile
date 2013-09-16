@@ -7,7 +7,7 @@ gem "rake",          "~> 10.0.4"
 gem "sass",          "~> 3.2.9"
 gem "coffee-script", "~> 2.2.0"
 gem "slim",          "~> 1.3.8"
-gem "therubyracer",  "~> 0.11.4"
+gem "therubyracer",  "~> 0.11.4" unless RUBY_PLATFORM =~ /darwin/
 gem "mongoid",       "~> 3.1.3"
 gem "bson_ext",      "~> 1.9.0"
 
