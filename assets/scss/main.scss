@@ -13,14 +13,20 @@
 // html, body { height: 100%; }
 
 body {
-  background-color: #373738;
+  background: url('/images/bg-texture.png') #373738;
   font: 13.34px Helvetica, Arial, sans-serif;
   font-size: small;
   text-align: center;
 }
 
+header h1 {
+  color: #222;
+  text-shadow: 0 1px 1px #555;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-size: 100%; }
+  font-size: 100%;
+}
 
 h1 { margin-bottom: 1em; }
 p { margin: 1em 0; }
@@ -100,7 +106,8 @@ table {
   line-height: 1.5em;
   padding: 20px 60px;
   background: #fff;
-  border: 10px solid #666363;
+  outline: 10px solid rgba(102, 99, 99, 0.55);
+  box-shadow: 0 10px 70px #222;
 }
 
 #site > header {
