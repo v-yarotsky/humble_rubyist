@@ -1,7 +1,15 @@
 {
-  "run_list": ["recipe[main::blog]"],
+  "run_list": ["recipe[main::blog]", "recipe[main::movie_club]"],
   "blog": {
     "dns_name": "blog.yarotsky.me",
-    "deploy_path": "/var/www/humble_rubyist"
+    "deploy_path": "/var/www/humble_rubyist",
+    "repo": "https://github.com/v-yarotsky/humble_rubyist.git",
+    "branch": "production"
+  },
+  "movie_club": {
+    "dns_name": "movie-club.yarotsky.me",
+    "deploy_path": "/var/www/movie_club",
+    "repo": "https://github.com/v-yarotsky/MovieClub.git",
+    "branch": "master"
   }
 }
