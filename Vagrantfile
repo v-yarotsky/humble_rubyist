@@ -1,13 +1,7 @@
 provision = proc do |chef|
   chef.provisioning_path = "/etc/chef"
-  chef.run_list = ["recipe[main::blog]"]
+  chef.run_list = ["recipe[ruby], recipe[mongodb]"]
   chef.json = {
-    "blog" => {
-      "dns_name" => "blog.yarotsky.me",
-      "deploy_path" => "/var/www/humble_rubyist",
-      #"repo" => "https://github.com/v-yarotsky/humble_rubyist.git",
-      #"branch" => "production"
-    }
   }
   chef.cookbooks_path = "chef/cookbooks"
   chef.log_level = :debug
