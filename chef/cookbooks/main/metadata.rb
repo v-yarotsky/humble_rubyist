@@ -1,1 +1,5 @@
 depends "apt"
+depends "mongodb"
+depends "nginx"
+depends "unicorn"
+depends "ruby"

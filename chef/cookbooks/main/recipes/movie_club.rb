@@ -1,4 +1,4 @@
-include_recipe "main::nginx"
+include_recipe "nginx"
 
 %w(
   unzip
@@ -21,7 +21,7 @@ db_path      = File.join(shared_path, "db")
 bundle_path  = File.join(shared_path, "vendor/bundle")
 current_app  = File.join(deploy_path, "current")
 
-main_unicorn "movie_club" do
+unicorn_instance "movie_club" do
   path unicorn_path
   app_path current_app
   environment "production"
@@ -60,7 +60,7 @@ execute "movie-club-after-update-code" do
   notifies :restart, "main_unicorn[movie_club]"
 end
 
-main_nginx_unicorn_vhost attrs[:dns_name] do
+unicorn_nginx_vhost attrs[:dns_name] do
   app_root current_app
   unicorn_socket "/tmp/unicorn_movie_club.socket"
   unicorn_instance_name "unicorn_movie_club"

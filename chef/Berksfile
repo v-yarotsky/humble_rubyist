@@ -1,0 +1,4 @@
+site :opscode
+
+cookbook "apt",             "~> 2.3.4"
+cookbook "build-essential", "~> 1.4.2"

@@ -1,0 +1,12 @@
+[submodule "chef/cookbooks/unicorn"]
+	path = chef/cookbooks/unicorn
+	url = git@github.com:v-yarotsky/chef-unicorn.git
+[submodule "chef/cookbooks/nginx"]
+	path = chef/cookbooks/nginx
+	url = git@github.com:v-yarotsky/chef-nginx.git
+[submodule "chef/cookbooks/mongodb"]
+	path = chef/cookbooks/mongodb
+	url = git@github.com:v-yarotsky/chef-mongodb.git
+[submodule "chef/cookbooks/ruby"]
+	path = chef/cookbooks/ruby
+	url = git@github.com:v-yarotsky/chef-ruby.git
