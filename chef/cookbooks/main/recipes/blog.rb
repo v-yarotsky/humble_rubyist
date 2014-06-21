@@ -1,3 +1,5 @@
+include_recipe "main::default"
+
 include_recipe "nginx"
 include_recipe "ruby"
 include_recipe "unicorn"
@@ -16,6 +18,8 @@ unicorn_path = File.join(deploy_path, "unicorn")
 current_app  = File.join(deploy_path, "current")
 
 unicorn_instance "blog" do
+  owner "app"
+  group "app"
   path unicorn_path
   app_path current_app
   environment "production"

@@ -1,5 +1,11 @@
 #!/bin/bash
 
-chef_binary=/usr/local/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-solo
+chef_binary=/usr/bin/chef-solo
+
+if [ ! -x "$chef_binary" ]; then
+  apt-get update
+  apt-get install -y curl
+  curl -L https://www.opscode.com/chef/install.sh | sudo bash
+fi
 
 "$chef_binary" -c solo.rb

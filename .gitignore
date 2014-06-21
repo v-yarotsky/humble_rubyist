@@ -16,3 +16,4 @@ public/js/*.js
 public/css/*.css
 .ruby-version
 .ruby-gemset
+.vagrant/

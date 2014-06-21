@@ -10,8 +10,11 @@ gem "slim",          "~> 1.3.8"
 gem "therubyracer",  "~> 0.12.0"
 gem "mongoid",       "~> 3.1.3"
 gem "bson_ext",      "~> 1.9.0"
+gem "rack-cache",    "~> 1.2"
 
 group :development, :test do
+  gem "capistrano",             "~> 3.0.1"
+  gem "capistrano-bundler",     "~> 1.1.2"
   gem "shotgun",                "~> 0.9"
   gem "minitest",               "~> 5.0.1"
   gem "capybara",               "~> 2.1.0"
