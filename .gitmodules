@@ -16,3 +16,6 @@
 [submodule "chef/cookbooks/build-essential"]
 	path = chef/cookbooks/build-essential
 	url = git@github.com:opscode-cookbooks/build-essential.git
+[submodule "chef/cookbooks/couchdb"]
+	path = chef/cookbooks/couchdb
+	url = git@github.com:v-yarotsky/chef-couchdb.git

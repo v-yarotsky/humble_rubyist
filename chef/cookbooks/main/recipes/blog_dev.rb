@@ -1,6 +1,7 @@
 include_recipe "apt"
 include_recipe "ruby"
 include_recipe "mongodb"
+include_recipe "couchdb"
 
 ruby_gem "bundler"
 

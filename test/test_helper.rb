@@ -1,6 +1,5 @@
 require "bundler/setup"
 require "minitest/autorun"
-require "minitest/pride"
 
 lib = File.expand_path("../../lib", __FILE__)
 $:.unshift lib
@@ -41,4 +40,3 @@ class HRTest < Minitest::Test
     end
   end
 end
-
