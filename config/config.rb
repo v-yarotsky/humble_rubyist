@@ -27,5 +27,10 @@ HumbleRubyist::Config.new do |c|
       }
     }
   }
-end
 
+  c.couchdb = {
+    test: {
+      host: "http://127.0.0.1:5984"
+    }
+  }
+end

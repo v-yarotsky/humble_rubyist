@@ -39,4 +39,10 @@ class HRTest < Minitest::Test
       session[collection_name].find.remove_all
     end
   end
+
+  def assert_raises(*exception_klasses, &block)
+    block.call
+  rescue *exception_klasses => e
+    true
+  end
 end
