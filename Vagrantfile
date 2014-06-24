@@ -12,6 +12,10 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-13.10_chef-provisionerless.box"
   config.vm.box_check_update = false
 
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+  end
+
   config.omnibus.chef_version = :latest
 
   config.vm.network :private_network, ip: "192.168.1.101"
