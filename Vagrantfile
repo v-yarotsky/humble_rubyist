@@ -20,7 +20,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: "192.168.1.101"
   config.vm.network :forwarded_port,  guest: 9393, host: 9393
-  config.vm.synced_folder ".", "/vagrant/", nfs: true
+  config.vm.network :forwarded_port,  guest: 5984, host: 5984
+  config.vm.synced_folder ".", "/home/vagrant/humble_rubyist", nfs: true
 
   config.vm.provision(:chef_solo, &provision)
 end
