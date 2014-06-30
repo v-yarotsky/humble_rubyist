@@ -49,8 +49,8 @@ module HumbleRubyist
         when Net::HTTPConflict
           raise Conflict, JSON.parse(response.body)
         else
-          p response
-          puts JSON.parse(response.body) rescue nil
+          #p response
+          #puts JSON.parse(response.body) rescue nil
           nil
         end
       end
@@ -67,6 +67,30 @@ module HumbleRubyist
     class BadPost < StandardError; end
     class DuplicatePost < StandardError; end
 
+    class Post < Struct.new(:id, :title, :category, :content, :created_at, :published_at, :_rev)
+      def initialize(attributes)
+        attributes = Hash[attributes.map { |k, v| [k.to_s, v] }]
+        super(
+          attributes["id"],
+          attributes["title"],
+          attributes["category"],
+          attributes["content"],
+          attributes["created_at"],
+          attributes["published_at"],
+          attributes["_rev"]
+        )
+      end
+
+      def id
+        raise BadPost, "Post must have an id" if self[:id].nil?
+        self[:id]
+      end
+
+      def to_h
+        Hash[each_pair.each_with_object({}) { |(k, v), r| r[k] = v unless v.nil? }]
+      end
+    end
+
     class PostRepository
       def self.create!(attributes)
         new.create!(attributes)
@@ -82,28 +106,38 @@ module HumbleRubyist
         @couch = couch
       end
 
-      def create!(attributes)
-        # validations
-        if attributes[:id].nil?
-          raise BadPost, "Post must have an ID"
-        end
-
+      def <<(post)
         # create database
         couch.put(database) rescue nil
 
         # create actual post
-        result = couch.put(database + "/" + attributes[:id], body: attributes)
+        response = couch.put(db_url(post.id), body: post.to_h)
+        post._rev = response["rev"]
+        self
       rescue Couch::Conflict => e
-        raise DuplicatePost, "Post with ID=#{attributes[:id]} already exists!"
+        raise DuplicatePost, "Post with ID=#{post.id} already exists!"
       end
 
-      def get(id)
-        response = couch.get(database + "/" + id)
-        OpenStruct.new(response)
+      def [](post_id)
+        response = couch.get(db_url(post_id))
+        Post.new(response)
+      end
+
+      def []=(post_id, post)
+        Post.new(couch.put(db_url(post.id), body: post.to_h))
+      end
+
+      def to_a
+        response = couch.get(db_url("_all_docs?include_docs=true"))
+        response["rows"].map { |row| Post.new(row["doc"]) }
       end
 
       def purge
         couch.delete(database)
+      end
+
+      def db_url(*elements)
+        [database, *elements].join("/")
       end
 
       def database
