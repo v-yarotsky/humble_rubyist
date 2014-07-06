@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_check_update = false
 
   config.vm.provider "virtualbox" do |v|
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.memory = 2048
   end
 

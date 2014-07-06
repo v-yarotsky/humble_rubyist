@@ -26,7 +26,7 @@ class HRTest < Minitest::Test
   def self.test(name, &block)
     raise ArgumentError, "Example name can't be empty" if String(name).empty?
     block ||= proc { skip "Not implemented yet" }
-    define_method "test_#{name}", &block
+    define_method "test_#{name.gsub(/\s+/, "_")}", &block
   end
 
   def self.xtest(*)
@@ -44,5 +44,16 @@ class HRTest < Minitest::Test
     block.call
   rescue *exception_klasses => e
     true
+  end
+end
+
+class ArmchairTest < HRTest
+  require 'humble_rubyist/armchair'
+  Dir.glob(File.expand_path("../stubs/**/*.rb", __FILE__)).each { |f| require f }
+
+  include HumbleRubyist::Armchair
+
+  def teardown
+    HumbleRubyist::Armchair.reset_dependencies!
   end
 end
